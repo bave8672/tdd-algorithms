@@ -57,11 +57,6 @@ export class LinkedList<T> implements ILinkedList<T> {
         Public Methods
     */
 
-    // Not necessary but comes in handy
-    print() {
-        this.forEach((el, i) => console.log(`index: ${i}, value: ${el.value}`));
-    }
-
     // Returns number of data elements in list
     size(): number {
         let n = 0;
