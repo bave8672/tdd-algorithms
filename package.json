@@ -1,59 +1,38 @@
 {
-  "name": "typescript-starter",
-  "version": "0.0.1",
-  "description": "A starter project for TypeScript libraries",
-  "main": "index.js",
+  "name": "class-validator-ts",
+  "version": "0.0.0",
+  "description": "valid",
+  "license": "MIT",
+  "repository": "https://www.github.com/bave8672/ClassValidator.js",
+  "author": "avesbenjamin@gmail.com",
+  "keywords": [
+    "Validation",
+    "Typescript"
+  ],
   "files": [
-    "typescript-starter.d.ts",
-    "**/*.js",
-    "**/*.js.map",
-    "!**/*_test.js",
-    "!**/*_test.js.map",
-    "!build/**/*.js",
-    "!coverage/**/*.js",
-    "!node_modules/**/*.js"
+    "lib"
   ],
   "scripts": {
-    "prebundle": "npm run compile && mv build/src/** .",
-    "bundle": "dts-generator --name $npm_package_name --main ${npm_package_name}/index --baseDir . --exclude node_modules/dts-generator/node_modules/typescript/bin/lib.es6.d.ts -out ${npm_package_name}.d.ts *.d.ts",
-    "clean": "rm -rf build coverage",
-    "precompile": "npm run clean",
-    "compile": "find src test typings -name \"*.ts\" | xargs tsc --declaration --module commonjs --target es5 --noImplicitAny --sourceMap --outDir build",
-    "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "lint": "find src test -name \"*.ts\" | sed 's/^/--file=/g' | xargs tslint",
-    "setup": "git clean -xdf && npm install && npm run typings",
-    "pretest": "npm run compile && find build -type f -name *.js -exec sed -i'.bak' -e '1s/^var __extends/\\/\\* istanbul ignore next \\*\\/\rvar __extends/;' {} \\;",
-    "test": "istanbul cover _mocha -- --reporter ${MOCHA_REPORTER-nyan} --slow 10 --ui tdd --full-trace --require source-map-support/register --recursive build/**/*_test.js ",
-    "posttest": "npm run lint && istanbul check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
-    "typings": "tsd reinstall && tsd rebundle",
-    "update": "git fetch && git merge origin master && npm run setup"
+    "test": "gulp test"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Asana/typescript-starter.git"
-  },
-  "keywords": [
-    "typescript"
-  ],
-  "author": "Asana",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Asana/typescript-starter/issues"
-  },
-  "homepage": "https://github.com/Asana/typescript-starter",
+  "dependencies": {},
   "devDependencies": {
-    "chai": "^2.3.0",
-    "coveralls": "^2.11.2",
-    "dts-generator": "^1.4.1",
-    "istanbul": "^0.3.14",
-    "mocha": "^2.2.4",
-    "sinon": "^1.14.1",
-    "source-map-support": "^0.3.1",
-    "tsd": "^0.6.0-beta.5",
-    "tslint": "^2.1.1",
-    "typescript": "^1.4.1"
+    "gulp": "^3.9.0",
+    "gulp-help": "^1.6.0",
+    "gulp-jasmine": "^2.0.1",
+    "gulp-sequence": "0.4.1",
+    "gulp-tsc": "^1.2.3",
+    "gulp-tsconfig-files": "0.0.2",
+    "gulp-tslint": "^3.1",
+    "gulp-typescript": "^2.13.6",
+    "jasmine": "^2.3.1",
+    "rimraf": "^2.5.4",
+    "tslint": "^3.5",
+    "typescript": "^1.8"
   },
-  "typescript": {
-    "definition": "typescript-starter.d.ts"
-  }
+  "engines": {
+    "node": ">=2.0.0"
+  },
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts"
 }
