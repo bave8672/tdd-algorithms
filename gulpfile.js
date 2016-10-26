@@ -35,7 +35,7 @@ gulp.task('test-build-src', ['test-clean'], function() {
 });
 
 gulp.task('test-build-test', ['test-clean'], function() {
-  return gulp.src('./test/**/*.ts')
+  return gulp.src(['./test/**/*.ts', '!./test/**/*.d.ts'])
     .pipe(ts({target: 'es5'}))
     .pipe(gulp.dest('./.test/test'));
 });
