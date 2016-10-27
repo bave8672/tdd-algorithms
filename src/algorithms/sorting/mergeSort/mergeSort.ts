@@ -22,8 +22,6 @@ export class MergeSorter<T> implements ISorter<T> {
     // Merge two sorted lists
     public merge(x: T[], y: T[], target: T[] = []): T[] {
 
-        console.log('merge:', x, y, target);
-
         // If both list are empty, return the target
         if (x.length === 0 && y.length === 0) {
             return target;
