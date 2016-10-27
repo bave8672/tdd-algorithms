@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bave8672/tdd-algorithms.svg?branch=master)](https://travis-ci.org/bave8672/tdd-algorithms)
+
 # TDD Algorithms
 
 This is a personal project of mine to practice implementing algorithms, data structures and more using test-driven practices.
