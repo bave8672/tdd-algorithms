@@ -3,11 +3,12 @@ var tslint = require('gulp-tslint');
 var jasmine = require('gulp-jasmine');
 var gulp = require('gulp-help')(gulp);
 var tsconfig = require('gulp-tsconfig-files');
-var gulpSequence = require('gulp-sequence');
+var runSequence = require('run-sequence');
 var ts = require('gulp-typescript');
 var tsProject = ts.createProject('tsconfig.json');
 var rimraf = require('rimraf');
 var istanbul = require('gulp-istanbul');
+var coveralls = require('gulp-coveralls');
 
 gulp.task('tslint', 'Lints all TypeScript source files', function () {
   return gulp.src(['./src/**/*.ts', './test/**/*.ts'])
@@ -15,15 +16,24 @@ gulp.task('tslint', 'Lints all TypeScript source files', function () {
     .pipe(tslint.report('verbose'));
 });
 
-gulp.task('test', 'Runs the Jasmine test specs', ['pre-test'], function () {
-    return gulp.src('./.test/**/*.js')
-      .pipe(jasmine())
-      .pipe(istanbul.writeReports())
-      .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }));
+gulp.task('test', 'Runs the Jasmine test specs', function () {
+  return runSequence('pre-test', 'run-test', 'coveralls');
+});
+
+gulp.task('coveralls', function() {
+  return gulp.src('./coverage/**/lcov.info')
+    .pipe(coveralls());
+});
+
+gulp.task('run-test', function() {
+  return gulp.src('./.test/**/*.js')
+    .pipe(jasmine())
+    .pipe(istanbul.writeReports())
+    .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }));
 });
 
 gulp.task('pre-test', ['test-build-src', 'test-build-test'], function() {
-  gulp.src(['./.test/src/**/*.js'])
+  return gulp.src(['./.test/src/**/*.js'])
     .pipe(istanbul())
     .pipe(istanbul.hookRequire());
 });

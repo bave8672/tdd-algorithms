@@ -22,6 +22,11 @@ describe('CircularBuffer', () => {
         expect(byteBuffer.isFull).toBe(false);
     });
 
+    it('Is has no values on initialisation', () => {
+        const buffer =new CircularBuffer(10);
+        expect(buffer.read()).toBe(null);
+    });
+
     it('Can write values', () => {
         const buffer = new CircularBuffer(4);
         buffer.write(1);
