@@ -1,4 +1,6 @@
-import { CircularBuffer } from '../src/structures/arrays/circularBuffer/circularBuffer';
+/// <reference path="../typings/index.d.ts" />
+
+import { CircularBuffer } from '../src/structures/queues/circularBuffer/circularBuffer';
 
 describe('CircularBuffer', () => {
 
@@ -23,7 +25,7 @@ describe('CircularBuffer', () => {
     });
 
     it('Is has no values on initialisation', () => {
-        const buffer =new CircularBuffer(10);
+        const buffer = new CircularBuffer(10);
         expect(buffer.read()).toBe(null);
     });
 

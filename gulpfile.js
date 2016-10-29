@@ -17,7 +17,11 @@ gulp.task('tslint', 'Lints all TypeScript source files', function () {
 });
 
 gulp.task('test', 'Runs the Jasmine test specs', function () {
-  return runSequence('pre-test', 'run-test', 'coveralls');
+  return runSequence(
+    'tslint',
+    ['test-build-src', 'test-build-test'],
+    'run-test', 
+    'coveralls');
 });
 
 gulp.task('coveralls', function() {
@@ -25,26 +29,40 @@ gulp.task('coveralls', function() {
     .pipe(coveralls());
 });
 
-gulp.task('run-test', function() {
+gulp.task('test-local-src', function() {
+  return runSequence('test-build-src', 'run-test');
+});
+
+gulp.task('test-local-test', function() {
+  return runSequence('test-build-test', 'run-test');
+});
+
+gulp.task('run-test', ['istanbul'], function() {
   return gulp.src('./.test/**/*.js')
     .pipe(jasmine())
     .pipe(istanbul.writeReports())
     .pipe(istanbul.enforceThresholds({ thresholds: { global: 90 } }));
 });
 
-gulp.task('pre-test', ['test-build-src', 'test-build-test'], function() {
+gulp.task('istanbul', function() {
   return gulp.src(['./.test/src/**/*.js'])
     .pipe(istanbul())
     .pipe(istanbul.hookRequire());
 });
 
-gulp.task('test-build-src', ['test-clean'], function() {
+gulp.task('test-build', function() {
+  return runSequence(['test-build-src', 'test-build-test']);
+});
+
+gulp.task('test-build-src', function() {
+  rimraf.sync('./.test/src');
   return gulp.src('./src/**/*.ts')
     .pipe(ts(tsProject))
     .pipe(gulp.dest('./.test/src'));
 });
 
-gulp.task('test-build-test', ['test-clean'], function() {
+gulp.task('test-build-test', function() {
+  rimraf.sync('./.test/test');
   return gulp.src(['./test/**/*.ts', '!./test/**/*.d.ts'])
     .pipe(ts({target: 'es5'}))
     .pipe(gulp.dest('./.test/test'));
@@ -52,9 +70,10 @@ gulp.task('test-build-test', ['test-clean'], function() {
 
 gulp.task('test-clean', function() {
   return rimraf.sync('./.test');
-})
+});
 
 gulp.task('watch', 'Watches ts source files and runs build on change', function () {
-  gulp.watch('./src/**/*.ts', ['tslint', 'test']);
-  gulp.watch('./test/**/*.ts', ['tslint', 'test']);
+  gulp.run(['test-build-src', 'test-build-test']);
+  gulp.watch('./src/**/*.ts', ['tslint', 'test-local-src']);
+  gulp.watch('./test/**/*.ts', ['tslint', 'test-local-src']);
 });

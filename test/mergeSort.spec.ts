@@ -1,5 +1,3 @@
-/// <reference path="../typings/index.d.ts" />
-
 import { MergeSorter } from '../src/algorithms/sorting/mergeSort/mergeSort';
 
 describe('MergeSorter', () => {
