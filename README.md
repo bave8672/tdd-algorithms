@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/bave8672/tdd-algorithms.svg?branch=master)](https://travis-ci.org/bave8672/tdd-algorithms)
+[![Coverage Status](https://coveralls.io/repos/github/bave8672/tdd-algorithms/badge.svg?branch=master)](https://coveralls.io/github/bave8672/tdd-algorithms?branch=master)
 
 # TDD Algorithms
 
