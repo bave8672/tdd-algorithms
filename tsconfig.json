@@ -3,9 +3,11 @@
     "declaration": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "preserveConstEnums": true,
     "removeComments": true,
-    "target": "es5"
+    "target": "es5",
+    "sourceMap": true,
+    "inlineSourceMap": true
   }
 }
