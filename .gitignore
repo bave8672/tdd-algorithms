@@ -6,3 +6,4 @@ npm-debug.log
 .DS_Store
 .coveralls.yml
 html-report/
+dist/**

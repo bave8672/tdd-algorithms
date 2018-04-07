@@ -1,4 +1,5 @@
 export class CircularBuffer<T> {
+    public isFull = false;
 
     // Emulated memory block
     private mem: { [index: number]: T } = {};
@@ -7,11 +8,7 @@ export class CircularBuffer<T> {
     // "Tail" or current read point
     private tail: number = 0;
 
-    public isFull: boolean = false;
-
-    constructor(public size: number) {
-
-    }
+    constructor(public size: number) {}
 
     public read(): T {
         // Can't read an entry that hasn't been written yet

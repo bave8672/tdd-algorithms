@@ -6,52 +6,11 @@ import { ILinkedList } from './ILinkedList';
 */
 
 export class LinkedList<T> implements ILinkedList<T> {
-
     /*
         Private Properties
     */
 
     head: Element<T> = new Element(null);
-
-    /*
-        Private Methods
-    */
-
-    // Run an arbitrary function on every element in the list
-    private forEach(fn: {(element: Element<T>, index: number): boolean | void}) {
-        let i = 0; // index
-        let currentElement = this.head;
-
-        while (currentElement.next) {
-            currentElement = currentElement.next;
-            const shouldBreak = fn(currentElement, i);
-
-            // console.log(currentElement);
-
-            if (shouldBreak === true) {
-                break;
-            }
-
-            i++;
-        }
-    }
-
-    private ForEachIncludingHead(fn: {(element: Element<T>, index: number): boolean | void}) {
-        if (fn(this.head, -1)) {
-            return;
-        }
-
-        this.forEach(fn);
-    }
-
-    private forLast(fn: {(element: Element<T>, index: number): any}) {
-        this.forEach((el, index) => {
-            if (el.next == null) {
-                fn(el, index);
-                return true;
-            }
-        });
-    }
 
     /*
         Public Methods
@@ -105,12 +64,12 @@ export class LinkedList<T> implements ILinkedList<T> {
 
     // Adds an item to the end of the list
     pushBack(value: T): void {
-        let newEl = new Element(value);
+        const newEl = new Element(value);
 
         if (this.head.next == null) {
             this.head.next = newEl;
         } else {
-            this.forLast((el) => el.next = newEl);
+            this.forLast(el => (el.next = newEl));
         }
     }
 
@@ -135,15 +94,13 @@ export class LinkedList<T> implements ILinkedList<T> {
 
     // Gets the value of the front item
     front(): T {
-        return this.head.next ?
-            this.head.next.value :
-            null;
+        return this.head.next ? this.head.next.value : null;
     }
 
     // Gets the value of the last item in the list
     back(): T {
         let value: T;
-        this.forLast(el => value = el.value);
+        this.forLast(el => (value = el.value));
         return value;
     }
 
@@ -158,7 +115,9 @@ export class LinkedList<T> implements ILinkedList<T> {
                 el.next = new Element(value, el.next);
                 return true;
             } else if (el.next == null) {
-                throw new Error(`Cannot insert value ${value} at index ${index}: Out of bounds. Current Size: ${i}`);
+                throw new Error(
+                    `Cannot insert value ${value} at index ${index}: Out of bounds. Current Size: ${i}`,
+                );
             }
         });
     }
@@ -188,12 +147,54 @@ export class LinkedList<T> implements ILinkedList<T> {
     }
 
     // Returns a list containing only values that match a predicate
-    filter(predicate: {(value: T): boolean}): void {
+    filter(predicate: (value: T) => boolean): void {
         return this.ForEachIncludingHead(el => {
-            if (el.next &&
-                !predicate(el.next.value)
-            ) {
+            if (el.next && !predicate(el.next.value)) {
                 el.next = el.next.next;
+            }
+        });
+    }
+
+    /*
+        Private Methods
+    */
+
+    // Run an arbitrary function on every element in the list
+    private forEach(
+        fn: (element: Element<T>, index: number) => boolean | void,
+    ) {
+        let i = 0; // index
+        let currentElement = this.head;
+
+        while (currentElement.next) {
+            currentElement = currentElement.next;
+            const shouldBreak = fn(currentElement, i);
+
+            // console.log(currentElement);
+
+            if (shouldBreak === true) {
+                break;
+            }
+
+            i++;
+        }
+    }
+
+    private ForEachIncludingHead(
+        fn: (element: Element<T>, index: number) => boolean | void,
+    ) {
+        if (fn(this.head, -1)) {
+            return;
+        }
+
+        this.forEach(fn);
+    }
+
+    private forLast(fn: (element: Element<T>, index: number) => any) {
+        this.forEach((el, index) => {
+            if (el.next == null) {
+                fn(el, index);
+                return true;
             }
         });
     }

@@ -1,17 +1,11 @@
-import { Trie } from '../src/structures/trees/trie/stringTrie';
+import { StringTrie } from '../src/structures/trees/trie/stringTrie';
 
 describe('String Trie', () => {
-
-    let trie: Trie;
-    const words = [
-        'angus',
-        'angela',
-        'arjun',
-        'amanda',
-        'amazing'];
+    let trie: StringTrie;
+    const words = ['angus', 'angela', 'arjun', 'amanda', 'amazing'];
 
     beforeEach(() => {
-        trie = Trie.fromArray(words);
+        trie = StringTrie.fromArray(words);
     });
 
     it('Can add words and find them', () => {
@@ -22,7 +16,7 @@ describe('String Trie', () => {
     });
 
     it('Can find all of the words beginning with a string', () => {
-        let wordsStartingWithAn = trie.wordsStartingWith('an');
+        const wordsStartingWithAn = trie.wordsStartingWith('an');
         expect(wordsStartingWithAn).toContain('angus');
         expect(wordsStartingWithAn).toContain('angela');
         expect(wordsStartingWithAn.length).toBe(2);
@@ -31,7 +25,7 @@ describe('String Trie', () => {
     it('Can find nested words', () => {
         trie.add('an');
 
-        let wordsStartingWithAn = trie.wordsStartingWith('an');
+        const wordsStartingWithAn = trie.wordsStartingWith('an');
         expect(wordsStartingWithAn).toContain('angus');
         expect(wordsStartingWithAn).toContain('angela');
         expect(wordsStartingWithAn).toContain('an');
@@ -46,10 +40,10 @@ describe('String Trie', () => {
         expect(trie.findStrict('an')).toBeNull();
     });
 
-    it('Doesn\'t duplicate when adding words', () => {
+    it(`Doesnt duplicate when adding words`, () => {
         trie.add('angela');
 
-        let wordsStartingWithAn = trie.wordsStartingWith('an');
+        const wordsStartingWithAn = trie.wordsStartingWith('an');
         expect(wordsStartingWithAn).toContain('angus');
         expect(wordsStartingWithAn).toContain('angela');
         expect(wordsStartingWithAn.length).toBe(2);
@@ -58,7 +52,7 @@ describe('String Trie', () => {
     it('can add empty words', () => {
         trie.add('');
 
-        let wordsStartingWithAn = trie.wordsStartingWith('an');
+        const wordsStartingWithAn = trie.wordsStartingWith('an');
         expect(wordsStartingWithAn).toContain('angus');
         expect(wordsStartingWithAn).toContain('angela');
         expect(wordsStartingWithAn.length).toBe(2);
@@ -67,7 +61,7 @@ describe('String Trie', () => {
     it('can remove words', () => {
         trie.remove('angela');
 
-        let wordsStartingWithAn = trie.wordsStartingWith('an');
+        const wordsStartingWithAn = trie.wordsStartingWith('an');
         expect(wordsStartingWithAn).toContain('angus');
         expect(wordsStartingWithAn.length).toBe(1);
     });
@@ -76,26 +70,26 @@ describe('String Trie', () => {
         trie.remove('an');
         trie.remove('angry');
 
-        let wordsStartingWithAn = trie.wordsStartingWith('an');
+        const wordsStartingWithAn = trie.wordsStartingWith('an');
         expect(wordsStartingWithAn).toContain('angus');
         expect(wordsStartingWithAn).toContain('angela');
         expect(wordsStartingWithAn.length).toBe(2);
     });
 
     it('can create a new Trie from an array of words', () => {
-        let t = Trie.fromArray(['one', 'two']);
+        const t = StringTrie.fromArray(['one', 'two']);
         expect(t.allWords()).toContain('one');
         expect(t.allWords()).toContain('two');
         expect(t.allWords().length).toBe(2);
     });
 
     it('can create a new trie from a word', () => {
-        let t = Trie.from('hello');
+        const t = StringTrie.from('hello');
         expect(t.allWords()).toContain('hello');
-        expect(t.allWords.length).toBe(1);
+        expect(t.allWords().length).toBe(1);
     });
 
     it('returns nothing if you try to create from an empty string', () => {
-        expect(Trie.from('')).toBeNull();
+        expect(StringTrie.from('')).toBeNull();
     });
 });

@@ -11,5 +11,5 @@ export interface ILinkedList<T> {
     insertAt(index: number, value: T): void;
     removeAt(index: number): T;
     reverse(): void;
-    filter(predicate: {(value: T): boolean}): void;
+    filter(predicate: (value: T) => boolean): void;
 }

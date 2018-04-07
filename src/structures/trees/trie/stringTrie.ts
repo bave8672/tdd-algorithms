@@ -1,61 +1,62 @@
-import { GenericTrie } from './genericTrie';
+import { Trie } from './genericTrie';
 
-export class Trie extends GenericTrie<string> {
-
-    children: Array<Trie>;
-    isTerminator: boolean;
-
-    static from(word: string): Trie {
+export class StringTrie extends Trie<string> {
+    public static from(word: string): StringTrie {
         if (word.length === 0) {
             return null;
         }
-        let head = new Trie(word[0]);
+        const head = new StringTrie(word[0]);
         if (word.length > 1) {
-            head.children.push(Trie.from(word.substr(1)));
+            head.children.push(StringTrie.from(word.substr(1)));
         } else {
             head.isTerminator = true;
         }
         return head;
     }
 
-    static fromArray(words: string[]): Trie {
-        let head = new Trie(null);
+    public static fromArray(words: string[]): StringTrie {
+        const head = new StringTrie(null);
         words.forEach(w => head.add(w));
         return head;
     }
 
-    add(word: string): void {
+    public children: StringTrie[];
+    public isTerminator: boolean;
+
+    public add(word: string): void {
         if (word.length === 0) {
             this.isTerminator = true;
             return;
         }
-        let next: Trie = this.children.find(t => t.value === word[0]);
+        let next: StringTrie = this.children.find(t => t.value === word[0]);
         if (!next) {
-            next = new Trie(word[0]);
+            next = new StringTrie(word[0]);
             this.children.push(next);
         }
         return next.add(word.substr(1));
     }
 
-    remove(word: string): Trie {
-        let prevNode: Trie;
-        let currentnode: Trie = this;
-        let nodeToDeleteFrom: Trie;
-        let charToDeleteFrom: string;
+    public remove(word: string): StringTrie {
+        let prevNode: StringTrie;
+        let currentnode: StringTrie = this;
+        let nodeToDeconsteFrom: StringTrie;
+        let charToDeconsteFrom: string;
         for (let i = 0; i < word.length; i++) {
             currentnode = currentnode.children.find(c => c.value === word[i]);
             if (!currentnode) {
                 return;
             }
-            if (i !== 0 &&
+            if (
+                i !== 0 &&
                 currentnode.children.length === 1 &&
-                nodeToDeleteFrom == null &&
-                !currentnode.isTerminator) {
-                nodeToDeleteFrom = prevNode;
-                charToDeleteFrom = currentnode.value;
+                nodeToDeconsteFrom == null &&
+                !currentnode.isTerminator
+            ) {
+                nodeToDeconsteFrom = prevNode;
+                charToDeconsteFrom = currentnode.value;
             }
             if (currentnode.children.length > 1) {
-                nodeToDeleteFrom = null;
+                nodeToDeconsteFrom = null;
             }
             prevNode = currentnode;
         }
@@ -63,21 +64,23 @@ export class Trie extends GenericTrie<string> {
             currentnode.isTerminator = false;
             return;
         }
-        nodeToDeleteFrom.children = nodeToDeleteFrom.children.filter(c => c.value !== charToDeleteFrom);
+        nodeToDeconsteFrom.children = nodeToDeconsteFrom.children.filter(
+            c => c.value !== charToDeconsteFrom,
+        );
     }
 
-    find(word: string): Trie {
+    find(word: string): StringTrie {
         if (word.length === 0) {
             return this;
         }
-        let next = this.children.find(t => t.value === word[0]);
+        const next = this.children.find(t => t.value === word[0]);
         if (!next) {
             return null;
         }
         return next.find(word.substr(1));
     }
 
-    findStrict(word: string): Trie {
+    findStrict(word: string): StringTrie {
         const found = this.find(word);
         if (found && found.isTerminator) {
             return found;
@@ -87,11 +90,13 @@ export class Trie extends GenericTrie<string> {
 
     allWords(prefix = ''): string[] {
         let words: string[] = [];
-        let newPrefix = this.value ? prefix + this.value : '';
+        const newPrefix = this.value ? prefix + this.value : '';
         if (this.isTerminator) {
             words.push(newPrefix);
         }
-        this.children.forEach(c => words = words.concat(c.allWords(newPrefix)));
+        this.children.forEach(
+            c => (words = words.concat(c.allWords(newPrefix))),
+        );
         return words;
     }
 

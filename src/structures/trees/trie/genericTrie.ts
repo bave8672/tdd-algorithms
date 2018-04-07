@@ -1,8 +1,3 @@
-export class GenericTrie<T> {
-
-    constructor(
-        public value: T,
-        public children: GenericTrie<T>[] = []
-    ) {
-    }
+export class Trie<T> {
+    constructor(public value: T, public children: Array<Trie<T>> = []) {}
 }

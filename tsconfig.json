@@ -1,13 +1,16 @@
 {
-  "compilerOptions": {
-    "declaration": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noImplicitAny": false,
-    "preserveConstEnums": true,
-    "removeComments": true,
-    "target": "es5",
-    "sourceMap": true,
-    "inlineSourceMap": true
-  }
+    "compilerOptions": {
+        "rootDirs": ["src", "test"],
+        "outDir": "dist",
+        "declaration": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": false,
+        "preserveConstEnums": true,
+        "removeComments": true,
+        "target": "es6",
+        "sourceMap": true,
+        "lib": ["es5", "es2015", "esnext", "scripthost"],
+        "typeRoots": ["node_modules/@types"]
+    }
 }

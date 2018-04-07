@@ -1,11 +1,8 @@
-/// <reference path="../typings/index.d.ts" />
-
 import { LinkedList } from '../src/structures/linkedLists/singlyLinkedList/LinkedList';
 
 let list: LinkedList<any>;
 
 describe('A Linked List', () => {
-
     beforeEach(() => {
         list = new LinkedList();
     });
@@ -161,7 +158,7 @@ describe('A Linked List', () => {
         expect(list.size()).toBe(4);
     });
 
-    it('Can reverse it\'s elements', () => {
+    it(`Can reverse it's elements`, () => {
         list.pushFront('first');
         list.pushFront('second');
         list.pushFront('third');
@@ -183,7 +180,7 @@ describe('A Linked List', () => {
         list.reverse();
     });
 
-    it('Can filter it\'s own values according to a predicate', () => {
+    it(`Can filter it's own values according to a predicate`, () => {
         list.pushFront(5);
         list.pushFront(4);
         list.pushFront(3);

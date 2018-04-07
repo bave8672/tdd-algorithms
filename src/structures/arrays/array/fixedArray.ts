@@ -3,7 +3,6 @@
 */
 
 export class FixedArray<T> {
-
     private mem: { [index: number]: T } = [];
 
     constructor(public size: number, init: T = null) {

@@ -1,9 +1,6 @@
-/// <reference path="../typings/index.d.ts" />
-
 import { CircularBuffer } from '../src/structures/queues/circularBuffer/circularBuffer';
 
 describe('CircularBuffer', () => {
-
     it('Can be intialised', () => {
         const buffer = new CircularBuffer(10);
     });
@@ -50,7 +47,7 @@ describe('CircularBuffer', () => {
         expect(buffer.read()).toBe(4);
     });
 
-    it('Runs out of memory accordig to it\'s size', () => {
+    it(`Runs out of memory accordig to it's size`, () => {
         const buffer = new CircularBuffer(4);
 
         buffer.write(1);

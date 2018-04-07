@@ -1,10 +1,9 @@
+import { Hasher } from '../src/structures/hashes/Hasher';
 import { HashMap } from '../src/structures/hashes/hashMap';
-import { Hasher } from  '../src/structures/hashes/Hasher';
 
 const map = new HashMap<any>(new Hasher());
 
 describe('HashMap', () => {
-
     it('Can add values', () => {
         map.add('one');
         map.add('two');

@@ -1,7 +1,6 @@
 import { IElement } from './IElement';
 
 export class Element<T> implements IElement<T> {
-
     value: T;
     next: IElement<T>;
 

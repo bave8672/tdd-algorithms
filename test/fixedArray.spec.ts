@@ -1,12 +1,9 @@
-/// <reference path="../typings/index.d.ts" />
-
 import { FixedArray } from '../src/structures/arrays/array/fixedArray';
 
 describe('a Fixed Array', () => {
-
     let array: FixedArray<string>;
 
-    beforeEach(() => array = new FixedArray<string>(1024));
+    beforeEach(() => (array = new FixedArray<string>(1024)));
 
     it('Can set values', () => {
         array.set(0, 'zero');

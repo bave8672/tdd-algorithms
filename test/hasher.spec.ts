@@ -12,13 +12,14 @@ const object = {
     foo: 'stringy',
     bar: 123123123,
     baz: {
-        nestedFn: () => { console.log('wow'); },
-        Kill: 'Bill'
-    }
+        nestedFn: () => {
+            console.log('wow');
+        },
+        Kill: 'Bill',
+    },
 };
 
 describe('Hasher', () => {
-
     it('Can hash a string', () => {
         expect(typeof hasher.hash('Hello world!!!')).toBe('number');
     });
@@ -44,7 +45,9 @@ describe('Hasher', () => {
     });
 
     it('Hashes values consistently', () => {
-        expect(hasher.hash('Hello world!!!')).toBe(hasher.hash('Hello world!!!'));
+        expect(hasher.hash('Hello world!!!')).toBe(
+            hasher.hash('Hello world!!!'),
+        );
         expect(hasher.hash(123456)).toBe(hasher.hash(123456));
         expect(hasher.hash(arr)).toBe(hasher.hash(arr));
         expect(hasher.hash(object)).toBe(hasher.hash(object));

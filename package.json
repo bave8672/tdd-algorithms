@@ -1,44 +1,36 @@
 {
-  "name": "class-validator-ts",
-  "version": "0.0.0",
-  "description": "valid",
-  "license": "MIT",
-  "repository": "https://www.github.com/bave8672/ClassValidator.js",
-  "author": "avesbenjamin@gmail.com",
-  "keywords": [
-    "Validation",
-    "Typescript"
-  ],
-  "files": [
-    "lib"
-  ],
-  "scripts": {
-    "test": "gulp test"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-coveralls": "^0.1.4",
-    "gulp-help": "^1.6.0",
-    "gulp-istanbul": "^1.1.1",
-    "gulp-jasmine": "^2.0.1",
-    "gulp-open": "^2.0.0",
-    "gulp-sequence": "0.4.1",
-    "gulp-sourcemaps": "^2.2.0",
-    "gulp-tsc": "^1.2.3",
-    "gulp-tsconfig-files": "0.0.2",
-    "gulp-tslint": "^3.1",
-    "gulp-typescript": "^2.13.6",
-    "jasmine": "^2.3.1",
-    "remap-istanbul": "^0.7.0",
-    "rimraf": "^2.5.4",
-    "run-sequence": "^1.2.2",
-    "tslint": "^3.5",
-    "typescript": "^1.8"
-  },
-  "engines": {
-    "node": ">=2.0.0"
-  },
-  "main": "./lib/index.js",
-  "typings": "./lib/index.d.ts"
+    "name": "class-validator-ts",
+    "version": "0.0.0",
+    "description": "valid",
+    "license": "MIT",
+    "repository": "https://www.github.com/bave8672/ClassValidator.js",
+    "author": "avesbenjamin@gmail.com",
+    "keywords": [
+        "Validation",
+        "Typescript"
+    ],
+    "files": [
+        "lib"
+    ],
+    "scripts": {
+        "start": "npm run test -- --watch",
+        "test": "jest --forceExit --coverage --verbose",
+        "lint": "tslint -p .",
+        "format": "prettier --write \"*.{ts,js,json,prettierrc}\" \"src/**/*.{ts,js,json}\""
+    },
+    "devDependencies": {
+        "@types/jasmine": "^2.8.6",
+        "@types/jest": "^22.2.2",
+        "@types/node": "^9.6.2",
+        "jest": "^22.4.3",
+        "prettier": "^1.11.1",
+        "ts-jest": "^22.4.2",
+        "tslint": "^5.9.1",
+        "typescript": "^2.8"
+    },
+    "engines": {
+        "node": ">=2.0.0"
+    },
+    "main": "./lib/index.js",
+    "typings": "./lib/index.d.ts"
 }
