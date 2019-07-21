@@ -66,7 +66,7 @@ describe('String Trie', () => {
         expect(wordsStartingWithAn.length).toBe(1);
     });
 
-    it('can remove words that dont exist', () => {
+    it('can remove words that don\'t exist', () => {
         trie.remove('an');
         trie.remove('angry');
 

@@ -15,7 +15,9 @@ export class FixedArray<T> {
 
     public set(index: number, value: T = null) {
         if (index < 0 || index >= this.size) {
-            throw new Error(`Cannot allocate memory at index ${index}: out of bounds`);
+            throw new Error(
+                `Cannot allocate memory at index ${index}: out of bounds`,
+            );
         }
 
         this.mem[index] = value;

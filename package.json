@@ -1,16 +1,14 @@
 {
-    "name": "class-validator-ts",
+    "name": "tdd-algorithmss",
     "version": "0.0.0",
     "description": "valid",
     "license": "MIT",
     "repository": "https://www.github.com/bave8672/ClassValidator.js",
     "author": "avesbenjamin@gmail.com",
     "keywords": [
-        "Validation",
+        "Algorithms",
+        "Datastructures",
         "Typescript"
-    ],
-    "files": [
-        "lib"
     ],
     "scripts": {
         "start": "npm run test -- --watch",

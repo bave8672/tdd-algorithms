@@ -1,6 +1,10 @@
 export class Hasher {
     hash(x: any): number {
-        if (typeof x === 'string' || typeof x === 'number' || typeof x === 'object') {
+        if (
+            typeof x === 'string' ||
+            typeof x === 'number' ||
+            typeof x === 'object'
+        ) {
             return this.hashObj(x);
         }
         if ('toString' in x) {

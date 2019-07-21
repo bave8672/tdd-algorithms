@@ -1,11 +1,10 @@
 language: node_js
+node_js: 8.9
 
 cache:
   directories:
     - node_modules
     - typings
 
-node_js:
-  - "6"
 before_script:
-  - yarn
+  - npm install

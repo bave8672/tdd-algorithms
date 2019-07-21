@@ -1,4 +1,5 @@
 module.exports = {
+    collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts'],
     globals: {
         'ts-jest': {
             tsConfigFile: 'tsconfig.json',
@@ -8,6 +9,6 @@ module.exports = {
     transform: {
         '^.+\\.(ts|tsx)$': './node_modules/ts-jest/preprocessor.js',
     },
-    testMatch: ['**/test/**/*.spec.ts'],
+    testMatch: ['**/*.spec.ts'],
     testEnvironment: 'node',
 };
