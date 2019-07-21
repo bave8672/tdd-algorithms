@@ -2,21 +2,25 @@ import { ArrayBinaryNode } from '../binaryTree/arrayBinaryTree';
 import { Heap } from './Heap';
 
 export class BinaryHeap<T> implements Heap<T> {
-    public get head(): ArrayBinaryNode<T> {
+    public get root(): ArrayBinaryNode<T> {
         return new ArrayBinaryNode(this.elements, 0);
     }
     public get leaf(): ArrayBinaryNode<T> {
         return new ArrayBinaryNode(this.elements, this.elements.length - 1);
     }
 
+    private readonly heapCondition: (a: T, b: T) => boolean;
+
     /**
      * Bottom-up heap construction O(n)
      */
     public constructor(
-        private readonly heapCondition = (higher: T, lower: T) =>
+        heapCondition = (higher: T, lower: T) =>
             (higher as any) >= (lower as any),
         private readonly elements: T[] = [],
     ) {
+        this.heapCondition = (a, b) =>
+            heapCondition(a, b) || !heapCondition(b, a);
         for (let i = Math.ceil(elements.length / 2); i >= 0; i--) {
             this.siftDown(new ArrayBinaryNode(elements, i));
         }
@@ -41,7 +45,16 @@ export class BinaryHeap<T> implements Heap<T> {
         return this.elements[0];
     }
     extractMax(): T {
-        throw new Error('Method not implemented.');
+        if (this.isEmpty()) {
+            throw new Error(`Cannot extract max from empty heap`);
+        }
+        const max = this.root.value;
+        const leaf = this.elements.pop();
+        if (!this.isEmpty()) {
+            this.root.value = leaf;
+            this.siftDown(this.root);
+        }
+        return max;
     }
     deleteMax(): void {
         throw new Error('Method not implemented.');

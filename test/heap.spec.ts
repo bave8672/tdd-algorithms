@@ -4,27 +4,27 @@ import { BinaryHeap } from '../src/structures/trees/heap/binaryHeap';
 describe(`Heap`, () => {
     describe(`construction`, () => {
         it(`empty heap`, () => {
-            assertHeap(new BinaryHeap<number>(max, []).head, max);
+            assertHeap(new BinaryHeap<number>(max, []).root, max);
         });
 
         it(`max`, () => {
-            assertHeap(new BinaryHeap<number>(max, [1, 2, 3, 4, 5]).head, max);
+            assertHeap(new BinaryHeap<number>(max, [1, 2, 3, 4, 5]).root, max);
         });
 
         it(`max reversed`, () => {
-            assertHeap(new BinaryHeap<number>(max, [5, 4, 3, 2, 1]).head, max);
+            assertHeap(new BinaryHeap<number>(max, [5, 4, 3, 2, 1]).root, max);
         });
 
         it(`min`, () => {
-            assertHeap(new BinaryHeap<number>(min, [1, 2, 3, 4, 5]).head, min);
+            assertHeap(new BinaryHeap<number>(min, [1, 2, 3, 4, 5]).root, min);
         });
 
         it(`min reversed`, () => {
-            assertHeap(new BinaryHeap<number>(min, [5, 4, 3, 2, 1]).head, min);
+            assertHeap(new BinaryHeap<number>(min, [5, 4, 3, 2, 1]).root, min);
         });
 
         it(`same elements`, () => {
-            assertHeap(new BinaryHeap<number>(min, [0, 0, 0]).head, min);
+            assertHeap(new BinaryHeap<number>(min, [0, 0, 0]).root, min);
         });
 
         it(`larger example`, () => {
@@ -45,7 +45,7 @@ describe(`Heap`, () => {
                     55,
                     3,
                     -1,
-                ]).head,
+                ]).root,
                 min,
             );
         });
@@ -66,8 +66,8 @@ describe(`Heap`, () => {
                 10,
             ]);
             heap.insert(100);
-            expect(heap.head.value).toEqual(100);
-            assertHeap(heap.head, max);
+            expect(heap.root.value).toEqual(100);
+            assertHeap(heap.root, max);
         });
 
         it(`should add a new item to the bottom`, () => {
@@ -84,8 +84,24 @@ describe(`Heap`, () => {
                 10,
             ]);
             heap.insert(-1);
-            expect(heap.head.value).toEqual(10);
-            assertHeap(heap.head, max);
+            expect(heap.root.value).toEqual(10);
+            assertHeap(heap.root, max);
+        });
+    });
+
+    describe(`extractMax`, () => {
+        it('should pop the root off the heap', () => {
+            const heap = new BinaryHeap(max, [1]);
+            expect(heap.extractMax()).toBe(1);
+            expect(heap.root.value).toBe(undefined);
+            assertHeap(heap.root, max);
+        });
+
+        it('should pop the root off the heap', () => {
+            const heap = new BinaryHeap(max, [1, 2, 3, 4, 5]);
+            expect(heap.extractMax()).toBe(5);
+            expect(heap.root.value).toBe(4);
+            assertHeap(heap.root, max);
         });
     });
 });

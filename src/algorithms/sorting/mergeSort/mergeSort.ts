@@ -4,7 +4,7 @@ import { ISorter } from '../ISorter';
     Generic merge sort
 */
 
-export class MergeSorter<T> implements ISorter<T> {
+export class MergeSort<T> implements ISorter<T> {
     constructor(private less: (x: T, y: T) => boolean = (a, b) => a < b) {
         return;
     }
