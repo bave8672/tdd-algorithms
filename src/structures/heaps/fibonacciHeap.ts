@@ -32,12 +32,15 @@ export class FibonacciHeap<K, V> implements Heap<INode<K, V>> {
     }
 
     public increaseKey(node: Node<K, V>, key: K): void {
-        if (!this.isHeap(node, { key })) {
-            throw new Error(`New key is smaller than old`);
+        if (this.isHeap(node, { key })) {
+            throw new Error(`invalid key`);
         }
         node.key = key;
         if (node.parent && this.isHeap(node, node.parent)) {
             this.cut(node);
+        } else {
+            this.removeNodeFromList(node);
+            this.root = this.mergeLists(this.root, node);
         }
     }
 
@@ -112,19 +115,19 @@ export class FibonacciHeap<K, V> implements Heap<INode<K, V>> {
         for (let node of nodeListCopy(this.root)) {
             while (degrees.has(node.degree)) {
                 let degree = degrees.get(node.degree);
-                if (this.isHeap(node, degree)) {
-                    const temp = node;
-                    node = degree;
-                    degree = temp;
+                if (this.isHeap(degree, node)) {
+                    [node, degree] = [degree, node];
                 }
-                this.linkHeaps(degree, node);
-                degrees.delete(node.degree);
+                this.linkHeaps(node, degree);
+                degrees.delete(degree.degree);
             }
             degrees.set(node.degree, node);
         }
         for (const [, node] of degrees) {
-            this.removeNodeFromList(node);
-            this.root = this.mergeLists(this.root, node);
+            if (node !== this.root) {
+                this.removeNodeFromList(node);
+                this.root = this.mergeLists(this.root, node);
+            }
         }
     }
 
@@ -151,12 +154,12 @@ export class FibonacciHeap<K, V> implements Heap<INode<K, V>> {
         return this.isHeap(a, b) ? a : b;
     }
 
-    private linkHeaps(max: Node<K, V>, min: Node<K, V>) {
-        this.removeNodeFromList(min);
-        max.child = this.mergeLists(min, max.child);
-        min.parent = max;
-        min.marked = false;
-        max.degree++;
+    private linkHeaps(parent: Node<K, V>, child: Node<K, V>) {
+        this.removeNodeFromList(child);
+        parent.child = this.mergeLists(child, parent.child);
+        child.parent = parent;
+        child.marked = false;
+        parent.degree++;
     }
 
     private removeNodeFromList(node: Node<K, V>): void {
@@ -178,7 +181,8 @@ export class FibonacciHeap<K, V> implements Heap<INode<K, V>> {
             return;
         }
         parent.degree--;
-        node.parent = undefined;
+        delete node.parent;
+        delete parent.child;
         node.marked = false;
         this.removeNodeFromList(node);
         this.root = this.mergeLists(this.root, node);

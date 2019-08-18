@@ -1,10 +1,9 @@
-import {
-    naiiveDjikstra,
-    Node,
-} from '../src/algorithms/pathfinding/Djiktra/naiiveDjiktra';
+import { naiiveDjikstra } from '../src/algorithms/pathfinding/Djiktra/naiiveDjiktra';
+import { priorityQueueDjisktra } from '../src/algorithms/pathfinding/Djiktra/priorityQueueDjikstra';
+import { Node } from '../src/algorithms/pathfinding/Node';
 
 describe(`Djikstra family algorithms`, () => {
-    [naiiveDjikstra].forEach(algorithm => {
+    [naiiveDjikstra, priorityQueueDjisktra].forEach(algorithm => {
         describe(algorithm.name, () => {
             it('should add distances to a grid of nodes base', () => {
                 const grid = makeGrid(1, 1);

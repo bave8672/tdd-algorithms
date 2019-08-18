@@ -1,5 +1,5 @@
-import { BinaryHeap } from './structures/heaps/binaryHeap';
-import { ArrayBinaryNode } from './structures/trees/binaryTree/arrayBinaryTree';
+import { BinaryHeap } from '../src/structures/heaps/binaryHeap';
+import { ArrayBinaryNode } from '../src/structures/trees/binaryTree/arrayBinaryTree';
 
 describe(`Binary Heap`, () => {
     describe(`construction`, () => {
