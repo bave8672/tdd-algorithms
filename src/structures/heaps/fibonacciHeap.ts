@@ -123,11 +123,10 @@ export class FibonacciHeap<K, V> implements Heap<INode<K, V>> {
             }
             degrees.set(node.degree, node);
         }
+        delete this.root;
         for (const [, node] of degrees) {
-            if (node !== this.root) {
-                this.removeNodeFromList(node);
-                this.root = this.mergeLists(this.root, node);
-            }
+            this.removeNodeFromList(node);
+            this.root = this.mergeLists(this.root, node);
         }
     }
 

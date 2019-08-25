@@ -102,26 +102,49 @@ describe(`Fibonacci Heap`, () => {
     });
 
     describe(`increase key`, () => {
-        it(`should increase the key of a node`, () => {
+        it(`should increase the key of a node 1`, () => {
             const heap = new FibonacciHeap(min, Number.NEGATIVE_INFINITY);
             const [a, b, c] = [1, 4, 6].map((n, i) => {
                 return heap.insert({ key: n, value: n });
             });
             expect(nodeCount(heap.root)).toBe(3);
+
             heap.increaseKey(c, 0);
             expect(nodeCount(heap.root)).toBe(3);
+
             expect(heap.extractMax().value).toBe(6);
             expect(nodeCount(heap.root)).toBe(2);
+
             const node = heap.insert({ key: 100, value: 100 });
             expect(nodeCount(heap.root)).toBe(3);
+
             heap.increaseKey(node, 3);
             expect(nodeCount(heap.root)).toBe(3);
+
             expect(heap.extractMax().value).toBe(1);
             expect(nodeCount(heap.root)).toBe(2);
+
             expect(heap.extractMax().value).toBe(100);
             expect(nodeCount(heap.root)).toBe(1);
+
             expect(heap.extractMax().value).toBe(4);
             expect(nodeCount(heap.root)).toBe(0);
+        });
+
+        it(`should increase the key of a node 2`, () => {
+            const heap = new FibonacciHeap(min, Number.NEGATIVE_INFINITY);
+            const nodes = [5, 4, 3, 2, 1].map((n, i) => {
+                return heap.insert({ key: n, value: n });
+            });
+            for (let i = -100; i > -200; i--) {
+                heap.insert({ key: 0, value: 0 });
+                nodes.forEach((node, index) => {
+                    heap.increaseKey(node, i + index);
+                });
+            }
+            nodes.forEach(node => {
+                expect(heap.extractMax().value).toEqual(node.value);
+            });
         });
     });
 });
