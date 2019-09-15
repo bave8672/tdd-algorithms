@@ -1,4 +1,4 @@
-import { BinaryHeap } from '../../../structures/trees/heap/binaryHeap';
+import { BinaryHeap } from '../../../structures/heaps/binaryHeap';
 import { ISorter } from '../ISorter';
 
 /**

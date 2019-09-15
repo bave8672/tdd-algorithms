@@ -1,7 +1,7 @@
+import { BinaryHeap } from '../src/structures/heaps/binaryHeap';
 import { ArrayBinaryNode } from '../src/structures/trees/binaryTree/arrayBinaryTree';
-import { BinaryHeap } from '../src/structures/trees/heap/binaryHeap';
 
-describe(`Heap`, () => {
+describe(`Binary Heap`, () => {
     describe(`construction`, () => {
         it(`empty heap`, () => {
             assertHeap(new BinaryHeap<number>(max, []).root, max);

@@ -1,4 +1,4 @@
-import { ArrayBinaryNode } from '../binaryTree/arrayBinaryTree';
+import { ArrayBinaryNode } from '../trees/binaryTree/arrayBinaryTree';
 import { Heap } from './Heap';
 
 export class BinaryHeap<T> implements Heap<T> {
@@ -24,6 +24,9 @@ export class BinaryHeap<T> implements Heap<T> {
         for (let i = Math.ceil(elements.length / 2); i >= 0; i--) {
             this.siftDown(new ArrayBinaryNode(elements, i));
         }
+    }
+    decreaseKey() {
+        throw new Error('Method not implemented.');
     }
 
     replace(value: T): void {

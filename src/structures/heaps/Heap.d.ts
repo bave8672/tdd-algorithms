@@ -22,10 +22,6 @@ export interface Heap<T> {
      */
     extractMax(): T;
     /**
-     * removes the root node of a max heap (or min heap), respectively
-     */
-    deleteMax(): void;
-    /**
      * pop root and push a new key. More efficient than pop followed by push, since only need to balance once, not twice, and appropriate for fixed-size heaps.
      */
     replace(value: T): void;

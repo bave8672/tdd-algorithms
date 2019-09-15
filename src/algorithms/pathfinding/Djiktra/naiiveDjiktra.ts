@@ -1,4 +1,5 @@
 import { unorderedSearch } from '../../searching/unorderedSearch';
+import { Node } from '../Node';
 
 /**
  * Classic implementation of Djikstra's Algorithm without using a priority queue
@@ -10,29 +11,25 @@ export function naiiveDjikstra(nodes: Node[], source: Node): Node[] {
     // Keep track of unvisited nodes in a set
     const unvisited = new Set(nodes);
     let current = source;
-    // iterate until all nodes are vcisited
+    // iterate until all nodes are visited
     while (unvisited.size > 0) {
-        const neighbours = current.neighbours.filter(node =>
-            unvisited.has(node),
-        );
+        const edges = current.edges.filter(edge => unvisited.has(edge.node));
         // minimise the distance for each neighbour
-        neighbours.forEach(
-            node =>
-                (node.distance = Math.min(node.distance, 1 + current.distance)),
+        edges.forEach(
+            edge =>
+                (edge.node.distance = Math.min(
+                    edge.node.distance,
+                    1 + current.distance,
+                )),
         );
         // mark node as visited
         unvisited.delete(current);
         // next node is either the neighbour with the smallest distance,
         // or the next unvisited node with the smallest distance
         current = unorderedSearch(
-            neighbours.length > 0 ? neighbours : Array.from(unvisited),
+            edges.length > 0 ? edges.map(e => e.node) : Array.from(unvisited),
             (a, b) => a.distance < b.distance,
         );
     }
     return nodes;
-}
-
-export interface Node {
-    distance?: number;
-    neighbours: Node[];
 }
