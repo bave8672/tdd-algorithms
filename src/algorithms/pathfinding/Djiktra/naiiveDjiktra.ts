@@ -19,7 +19,7 @@ export function naiiveDjikstra(nodes: Node[], source: Node): Node[] {
             edge =>
                 (edge.node.distance = Math.min(
                     edge.node.distance,
-                    1 + current.distance,
+                    edge.length + current.distance,
                 )),
         );
         // mark node as visited

@@ -71,12 +71,30 @@ describe(`Djikstra family algorithms`, () => {
                         [2, 2, 2, 2],
                     ]);
                 });
+
+                it(`should work with larger distances 1`, () => {
+                    const grid = makeGrid(4, 4, 2);
+                    expect(gridDistances(algorithm(grid, grid[6]), 4)).toEqual([
+                        [4, 2, 2, 2],
+                        [4, 2, 0, 2],
+                        [4, 2, 2, 2],
+                        [4, 4, 4, 4],
+                    ]);
+                });
+
+                it(`should work with larger distances 2`, () => {
+                    const grid = makeGrid(2, 2, 99);
+                    expect(gridDistances(algorithm(grid, grid[1]), 2)).toEqual([
+                        [99, 0],
+                        [99, 99],
+                    ]);
+                });
             });
         },
     );
 });
 
-function makeGrid(width: number, height: number): Node[] {
+function makeGrid(width: number, height: number, edgeLength = 1): Node[] {
     const nodes: Node[] = [];
     for (let i = 0; i < width; i++) {
         for (let j = 0; j < height; j++) {
@@ -99,7 +117,7 @@ function makeGrid(width: number, height: number): Node[] {
                     if (neighbourI !== i || neighbourJ !== j) {
                         node.edges.push({
                             node: nodes[neighbourI + width * neighbourJ],
-                            length: 1,
+                            length: edgeLength,
                         });
                     }
                 }
